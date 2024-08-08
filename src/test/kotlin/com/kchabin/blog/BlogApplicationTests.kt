@@ -15,6 +15,8 @@ import java.util.*
 @SpringBootTest
 class BlogApplicationTests {
 
+	//TODO : @BeforeAll, @AfterAll, @Transactional 등 사용해서 테스트 코드 다시 작성해보기
+
 	@Autowired
 	private lateinit var commentRepository: CommentRepository
 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kchabin's Blog</title>
+</head>
+<body>
+    <h2>블로그 게시물</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>제목</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="post : ${postList}">
+                <td th:text="${post.title}"></td>
+                <td th:text="${post.createDate}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
