@@ -28,5 +28,8 @@ class Post(
     var id: Long? = null,
 ) {
     //JPA를 위한 기본 생성자
-    constructor(): this("", "",LocalDateTime.now()) {}
+    constructor() : this("", "",LocalDateTime.now())
+
+    //PostService를 위한 생성자
+    constructor(title: String, content: String) : this(title=title, content=content, createDate=LocalDateTime.now())
 }
