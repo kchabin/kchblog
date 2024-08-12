@@ -21,4 +21,6 @@ class Comment(
     var id: Long? = null
 ) {
     constructor() : this("", LocalDateTime.now(), Post()) {}
+
+    constructor(content: String, createdAt: LocalDateTime) : this(content=content, createdAt = LocalDateTime.now(), post=Post()) {}
 }

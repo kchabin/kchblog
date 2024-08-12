@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/blog") //URL 프리픽스
+@RequestMapping("/post") //URL 프리픽스
 class PostController(
     @Autowired
     private val postService: PostService
 ) {
 
-    @GetMapping("/posts")
+    @GetMapping("/list")
     fun blogPosts(model: Model): String {
         var postList: List<Post> = postService.getPosts()
         model.addAttribute("postList", postList)
@@ -23,12 +23,17 @@ class PostController(
     }
 
     //post 상세 페이지 매핑
-    @GetMapping("/posts/detail/{id}")
+    @GetMapping("/detail/{id}")
     fun detail(model: Model, @PathVariable id: Long): String {
         var post: Post? = postService.getPost(id)
         model.addAttribute("post", post)
         return "post_detail"
     }
+
+    //@GetMapping("/posts/create")
+    //fun create(){
+    //    return "post_create"
+    //}
 
 
 
