@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import java.time.LocalDateTime
 
 @RequestMapping("/comment")
 @Controller
@@ -19,15 +20,21 @@ class CommentController(
     private val postService: PostService
 ){
 
+    //답글 작성
     @PostMapping("/create/{id}")
     fun createComment(model: Model, @PathVariable id: Long, @RequestParam(value="content") content: String): ResponseEntity<String> {
-        val post: PostDTO = postService.getPost(id)
+        val postDTO: PostDTO = postService.getPost(id) ?: return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found")
 
-        //if(post == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found")
+        // CommentDTO 생성
+        val commentDTO = CommentDTO(
+            content = content,
+            createdAt = LocalDateTime.now(),
+            postId = id //postId로 현재 Post의 id 사용
+        )
 
-        //TODO : 답변 저장
+        commentService.createComment(commentDTO)
 
-
+        //리다이렉트 URL 설정
         val redirectUrl = String.format("redirect:/post/detail/%s", id)
         return ResponseEntity.status(HttpStatus.FOUND).header("Location", redirectUrl).body("Post is found")
     }

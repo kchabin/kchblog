@@ -17,7 +17,7 @@ class PostController(
 
     @GetMapping("/list")
     fun blogPosts(model: Model): String {
-        var postList: List<Post> = postService.getPosts()
+        var postList: List<PostDTO> = postService.getPosts()
         model.addAttribute("postList", postList)
         return "post_list"
     }
@@ -25,15 +25,11 @@ class PostController(
     //post 상세 페이지 매핑
     @GetMapping("/detail/{id}")
     fun detail(model: Model, @PathVariable id: Long): String {
-        var post: Post? = postService.getPost(id)
+        var post: PostDTO = postService.getPost(id)
         model.addAttribute("post", post)
         return "post_detail"
     }
 
-    //@GetMapping("/posts/create")
-    //fun create(){
-    //    return "post_create"
-    //}
 
 
 

@@ -31,16 +31,21 @@ class CommentService(
         )
     }
 
+    //답글 작성
     fun createComment(commentDTO: CommentDTO): Long? {
+        //Post 엔티티를 찾음. 없으면 예외 발생
         val post = postRepository.findById(commentDTO.postId ?: throw IllegalArgumentException("Post ID cannot be null") )
             .orElseThrow { IllegalArgumentException("Post ID ${commentDTO.postId} not found") }
 
+        //Comment 엔티티 생성
         val comment = Comment(
             id = commentDTO.id,
             content=commentDTO.content,
-            createdAt = commentDTO.createdAt,
+            createdAt = commentDTO.createdAt ?: LocalDateTime.now(),
             post = post
             )
+
+        //Comment를 저장하고 ID 반환
         commentRepository.save(comment)
         return comment.id
     }
