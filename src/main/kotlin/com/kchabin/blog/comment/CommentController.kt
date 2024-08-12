@@ -1,6 +1,7 @@
 package com.kchabin.blog.comment
 
 import com.kchabin.blog.post.Post
+import com.kchabin.blog.post.PostDTO
 import com.kchabin.blog.post.PostService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -20,13 +21,11 @@ class CommentController(
 
     @PostMapping("/create/{id}")
     fun createComment(model: Model, @PathVariable id: Long, @RequestParam(value="content") content: String): ResponseEntity<String> {
-        val post: Post = postService.getPost(id)
+        val post: PostDTO = postService.getPost(id)
 
         //if(post == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found")
 
         //TODO : 답변 저장
-        commentService.createComment(content)
-
 
 
         val redirectUrl = String.format("redirect:/post/detail/%s", id)
