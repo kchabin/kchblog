@@ -4,4 +4,4 @@ kotlin springboot jpa blog
 - https://wikidocs.net/book/7601
 
 ### 진행 상황
-'2-12 답변 기능 만들기' 까지 구현 - 
+'2-12 답변 기능 만들기' 까지 구현 - 2024.08.13
