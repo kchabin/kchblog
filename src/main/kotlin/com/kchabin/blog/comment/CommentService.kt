@@ -18,6 +18,7 @@ class CommentService(
     }*/
 
     //DTO 사용
+    //리포지토리에서 찾은 comments를 DTO로 변환
     fun getComments(postId: Long): List<CommentDTO>{
         val comments = commentRepository.findByPostId(postId)
         return comments.map { comment -> convertToCommentDTO(comment)}
@@ -32,7 +33,7 @@ class CommentService(
     }
 
     //답글 작성
-    fun createComment(commentDTO: CommentDTO): Long? {
+    fun createComment(commentDTO: CommentDTO) {
         //Post 엔티티를 찾음. 없으면 예외 발생
         val post = postRepository.findById(commentDTO.postId ?: throw IllegalArgumentException("Post ID cannot be null") )
             .orElseThrow { IllegalArgumentException("Post ID ${commentDTO.postId} not found") }
@@ -47,6 +48,5 @@ class CommentService(
 
         //Comment를 저장하고 ID 반환
         commentRepository.save(comment)
-        return comment.id
     }
 }

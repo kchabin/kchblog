@@ -1,13 +1,7 @@
 package com.kchabin.blog.post
 
 import com.kchabin.blog.comment.Comment
-import jakarta.persistence.CascadeType
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.OneToMany
+import jakarta.persistence.*
 import java.time.LocalDateTime
 
 @Entity
@@ -21,7 +15,7 @@ class Post(
     @Column
     var createDate: LocalDateTime,
 
-    @OneToMany(mappedBy = "post", cascade = [CascadeType.REMOVE])
+    @OneToMany(mappedBy = "post", fetch=FetchType.LAZY, cascade = [CascadeType.REMOVE])
     var commentList: MutableList<Comment> = mutableListOf(),
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +25,5 @@ class Post(
     constructor() : this("", "",LocalDateTime.now())
 
     //PostService를 위한 생성자
-    constructor(title: String, content: String) : this(title=title, content=content, createDate=LocalDateTime.now())
+    //constructor(title: String, content: String, createDate: LocalDateTime) : this(title=title, content=content, createDate=LocalDateTime.now())
 }

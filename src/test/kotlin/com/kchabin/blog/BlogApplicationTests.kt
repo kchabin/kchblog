@@ -30,31 +30,31 @@ class BlogApplicationTests {
 		assertEquals(3, all.size)
 
 		var p: Post = all.get(0)
-		assertEquals("title1", p.title)
+		assertEquals("title3", p.title)
 	}
 
 	@Test
 	fun `findById`() {
 
-		var op: Optional<Post> = postRepository.findById(1)
+		var op: Optional<Post> = postRepository.findById(3)
 
 		if(op.isPresent){
 			var p = op.get()
-			assertEquals("title1", p.title)
-			println("title1 ${p.title}")
+			assertEquals("title3", p.title)
+			println("title3 ${p.title}")
 		}
 	}
 
 	@Test
 	fun `findByTitle`() {
-		var p = postRepository.findByTitle("title1")
+		var p = postRepository.findByTitle("title3")
 		assertEquals(1, p?.id)
 		println("title1의 id = ${p?.id}")
 	}
 
 	@Test
 	fun `findByTitleAndContent`() {
-		var p = postRepository.findByTitleAndContent("title1", "첫번째 포스트")
+		var p = postRepository.findByTitleAndContent("title3", "첫번째 포스트")
 		assertEquals(1, p?.id)
 	}
 
@@ -62,34 +62,34 @@ class BlogApplicationTests {
 	fun `findByTitleLike`() {
 		var pList = postRepository.findByTitleLike("title%")
 		var p: Post? = pList[0]
-		assertEquals("title1", p?.title)
+		assertEquals("title3", p?.title)
 	}
 
 	@Test
 	fun `updatePost`() {
-		var op: Optional<Post> = postRepository.findById(1)
+		var op: Optional<Post> = postRepository.findById(5)
 		assertTrue(op.isPresent) //괄호 안의 값이 참인지 테스트
 		var p: Post = op.get()
-		p.content = "첫번째 포스트의 콘텐츠"
+		p.content = "다섯번째 포스트의 콘텐츠"
 		postRepository.save(p)
 	}
 
 	@Test
 	fun `deletePost`() {
-		var op: Optional<Post> = postRepository.findById(2)
+		var op: Optional<Post> = postRepository.findById(5)
 		assertTrue(op.isPresent)
 		var p: Post = op.get()
 		postRepository.delete(p)
-		assertEquals(1, postRepository.count())
+		assertEquals(5, postRepository.count())
 	}
 
 	@Test
 	fun `createComment`() {
-		var op: Optional<Post> = postRepository.findById(3)
+		var op: Optional<Post> = postRepository.findById(4)
 		assertTrue(op.isPresent)
 		var p: Post = op.get()
 
-		var c = Comment("세번째 포스트만 남았네요.", LocalDateTime.now(), p)
+		var c = Comment("4번째 포스트입니다.", LocalDateTime.now(), p)
 		commentRepository.save(c)
 	}
 
@@ -97,11 +97,11 @@ class BlogApplicationTests {
 	fun `findCommentByTitle` () {
 		var op: Optional<Post> = postRepository.findById(3)
 
-		assertTrue(op.isPresent)
+		assertTrue(op.isPresent) //id가 3인 포스트가 존재하는지
 		var p: Post = op.get()
 
 		var commentList: List<Comment> = commentRepository.findAll().toList()
-		assertEquals(1, commentList.size)
-		assertEquals("세번째 포스트만 남았네요.", commentList.get(0).content)
+		assertEquals(21, commentList.size) //총 댓글 갯수는 17개여야 함
+		assertEquals("ss", commentList.get(3).content) //댓글 중 4번째의 content 획득
 	}
 }

@@ -22,5 +22,5 @@ class Comment(
 ) {
     constructor() : this("", LocalDateTime.now(), Post()) {}
 
-    constructor(content: String, createdAt: LocalDateTime) : this(content=content, createdAt = LocalDateTime.now(), post=Post()) {}
+    //constructor(content: String, createdAt: LocalDateTime) : this(content=content, createdAt = LocalDateTime.now(), post=Post()) {}
 }

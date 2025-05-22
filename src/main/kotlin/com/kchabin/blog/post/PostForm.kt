@@ -1,29 +1,27 @@
 package com.kchabin.blog.post
 
-
-import com.kchabin.blog.comment.CommentDTO
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.Size
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import java.time.LocalDateTime
 
 
-data class PostDTO(
-    val id: Long? = null,
+class PostForm(
+    @Autowired
+    private val postDTO: PostDTO
+) {
 
     @field:NotBlank(message = "제목은 필수항목입니다.")
     @field:Size(max=50)
-    var title: String,
+    private var title: String =""
 
     @field:NotBlank(message = "내용은 필수항목입니다.")
     @field:Size(max=500)
-    var content: String,
-
-    val createDate: LocalDateTime = LocalDateTime.now(),
-    val comments: List<CommentDTO> = listOf()  // 연관된 CommentDTO 리스트
-) {
+    private var content: String =""
 
 
-
-
+    fun toPostDTO(): PostDTO {
+        return PostDTO(title = title, content = content)
+    }
 }

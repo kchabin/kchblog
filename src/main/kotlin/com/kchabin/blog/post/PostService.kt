@@ -7,8 +7,10 @@ import com.kchabin.blog.comment.CommentService
 import com.kchabin.blog.repository.PostRepository
 import jakarta.persistence.Entity
 import jakarta.persistence.EntityNotFoundException
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.ExceptionHandler
+import java.time.LocalDateTime
 import java.util.*
 
 
@@ -40,27 +42,38 @@ class PostService(
     }*/
 
     //DTO
+
     fun getPost(id: Long): PostDTO {
         val post = postRepository.findById(id).orElse(null) ?: throw IllegalArgumentException("Post is not found")
-        val comments = post.commentList.map { commentService.convertToCommentDTO(it)}
+        //val comments = post.commentList.map { commentService.convertToCommentDTO(it)}
+        val comments = commentService.getComments(post.id!!)
         return PostDTO(
             id = post.id,
             title = post.title,
             content = post.content,
-            createDate = post.createDate
+            createDate = post.createDate,
+            comments = comments //없었음.
         )
     }
 
-    fun posting(postDTO: PostDTO): Long?{
-        var post = Post(title=postDTO.title, content = postDTO.content)
-        postRepository.save(post)
-        return post.id
+    //post 게시하는 함수
+    fun create(postDTO: PostDTO) {
+        var post = Post(postDTO.title, postDTO.content, LocalDateTime.now())
+        postRepository.save(post) //PostDTO를 받아서 엔티티 Post를 리포지토리에 저장한다.
     }
 
+//    fun create(title: String, content: String) {
+//        val post = postRepository.save(Post(title, content, LocalDateTime.now()))
+//
+//    }
     fun convertToPostDTO(post: Post): PostDTO {
         val commentDTOs = post.commentList.map { commentService.convertToCommentDTO(it) }
-        return PostDTO(post.id, post.title, post.content, post.createDate)
+        return PostDTO(post.id, post.title, post.content, post.createDate, commentDTOs)
     }
+
+//    fun PostDTO.toPost() : Post{
+//        return Post(title=this.title, content=this.content, createDate=LocalDateTime.now())
+//    }
 
 
 
