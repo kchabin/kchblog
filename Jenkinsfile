@@ -7,7 +7,7 @@ pipeline {
 
         // Docker Hub 푸시용 변수
         DOCKER_IMAGE = "kchabin/kchblog:${env.BUILD_NUMBER}"
-        DOCKER_HUB_CREDENTIALS = 'docker-hub' // Jenkins에 등록된 자격 증명 ID
+        DOCKER_HUB_CREDENTIALS = 'jenkins-dockerhub' // Jenkins에 등록된 자격 증명 ID
     }
 
     stages {
