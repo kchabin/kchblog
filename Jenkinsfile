@@ -2,9 +2,12 @@ pipeline {
     agent any
 
     environment {
-        // JDK 17 설정 (Jenkins에 JDK17이 설치되어 있어야 함)
         JAVA_HOME = tool(name: 'JDK17', type: 'jdk')
         PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
+
+        // Docker Hub 푸시용 변수
+        DOCKER_IMAGE = "kchabin/kchblog:${env.BUILD_NUMBER}"
+        DOCKER_HUB_CREDENTIALS = 'docker-hub' // Jenkins에 등록된 자격 증명 ID
     }
 
     stages {
@@ -16,7 +19,6 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Gradle Wrapper로 빌드 (wrapper가 있어야 함)
                 sh './gradlew clean build -x test'
             }
         }
@@ -27,7 +29,18 @@ pipeline {
             }
             post {
                 always {
-                    junit '**/build/test-results/test/*.xml'  // 테스트 결과 보고
+                    junit '**/build/test-results/test/*.xml'
+                }
+            }
+        }
+
+        stage('Docker Build & Push') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                        def app = docker.build("${DOCKER_IMAGE}")
+                        app.push()
+                    }
                 }
             }
         }
