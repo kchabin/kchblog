@@ -5,9 +5,9 @@ pipeline {
         JAVA_HOME = tool(name: 'JDK17', type: 'jdk')
         PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 
-        // Docker Hub 푸시용 변수
+        repository = "kchabin/kchblog"
         DOCKER_IMAGE = "kchabin/kchblog:${env.BUILD_NUMBER}"
-        DOCKER_HUB_CREDENTIALS = 'jenkins-dockerhub' // Jenkins에 등록된 자격 증명 ID
+        DOCKER_HUB_CREDENTIALS = 'jenkins-dockerhub'
     }
 
     stages {
