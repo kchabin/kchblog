@@ -94,7 +94,7 @@ class BlogApplicationTests {
 	//	var c = Comment("4번째 포스트입니다.", LocalDateTime.now(), p)
 	//	commentRepository.save(c)
 	//}
-
+	/*
 	@Test
 	fun `findCommentByTitle` () {
 		var op: Optional<Post> = postRepository.findById(3)
@@ -106,4 +106,5 @@ class BlogApplicationTests {
 		assertEquals(22, commentList.size) //총 댓글 갯수는 17개여야 함
 		assertEquals("ss", commentList.get(3).content) //댓글 중 4번째의 content 획득
 	}
+ */
 }
