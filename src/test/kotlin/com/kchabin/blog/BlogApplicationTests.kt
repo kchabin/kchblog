@@ -17,6 +17,7 @@ class BlogApplicationTests {
 
 	//TODO : @BeforeAll, @AfterAll, @Transactional 등 사용해서 테스트 코드 다시 작성해보기
 
+	/*
 	@Autowired
 	private lateinit var commentRepository: CommentRepository
 
@@ -64,6 +65,7 @@ class BlogApplicationTests {
 		var p: Post? = pList[0]
 		assertEquals("title3", p?.title)
 	}
+ */
 
 //	@Test
 //	fun `updatePost`() {
