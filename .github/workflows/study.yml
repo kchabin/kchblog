@@ -88,7 +88,8 @@ jobs:
       - name: Update newTag in kustomization.yaml
         run: |
           TAG=${{ github.run_number }}
-          sed -i "s/newTag: .*/newTag: ${TAG}/" k8s/overlays/prod/kustomization.yaml       
+          sed -i "s/newTag: .*/newTag: \"${TAG}\"/" k8s/overlays/prod/kustomization.yaml
+
 
       # 12. Git 설정 및 변경사항 커밋
       - name: Commit and push updated manifests
