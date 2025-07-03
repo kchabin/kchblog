@@ -6,4 +6,4 @@ patchesStrategicMerge:
 
 images:
   - name: docker.io/kchabin/kchblog
-    newTag: 5
+    newTag: "6"
