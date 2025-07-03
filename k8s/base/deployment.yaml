@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kchblog
+  labels:
+    app: kchblog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kchblog
+  template:
+    metadata:
+      labels:
+        app: kchblog
+    spec:
+      containers:
+        - name: kchblog
+          image: docker.io/kchabin/kchblog:latest  # 이 부분은 patch에서 오버라이드됨
+          ports:
+            - containerPort: 8080

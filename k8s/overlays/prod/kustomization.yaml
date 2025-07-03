@@ -1,0 +1,9 @@
+resources:
+  - ../../base
+
+patchesStrategicMerge:
+  - patch-deployment.yaml
+
+images:
+  - name: docker.io/kchabin/kchblog
+    newTag: REPLACEME  # GitHub Actions에서 이 값을 실제 태그로 바꿔줌

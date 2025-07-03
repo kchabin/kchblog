@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kchblog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kchblog
+  template:
+    metadata:
+      labels:
+        app: kchblog
+    spec:
+      containers:
+        - name: kchblog
+          image: docker.io/kchabin/kchblog:REPLACEME
+          ports:
+            - containerPort: 8080
